@@ -1,2 +1,2 @@
-# my-helpers
+# My-helpers
 Storage for re-usable helper functions
