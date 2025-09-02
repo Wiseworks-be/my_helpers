@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: my-helpers
+Version: 0.1.0
+Summary: Reusable helper functions for AppSheet, Billit, and other integrations
+Author-email: Marc De Krock <you@example.com>
+License: MIT
+Project-URL: Homepage, https://github.com/yourorg/my-helpers
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: License
+Requires-Dist: requests>=2.31.0
+Dynamic: license-file
+
+# My-helpers
+Storage for re-usable helper functions
