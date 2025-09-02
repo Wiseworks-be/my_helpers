@@ -20,3 +20,4 @@ def format_invoice_data(invoice_items):
         "total_amount": total,
         "currency": "EUR"
     }
+
