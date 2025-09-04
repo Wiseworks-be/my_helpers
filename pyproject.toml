@@ -22,4 +22,4 @@ where = ["."]
 include = ["my_helpers*"]
 
 [project.urls]
-Homepage = "https://github.com/yourorg/my-helpers"
+Homepage = "https://github.com/WiseworksGithub/my-helpers.git"
