@@ -21,5 +21,8 @@ dependencies = [
 where = ["."]
 include = ["my_helpers*"]
 
+[tool.setuptools.package-data]
+"my_helpers" = ["*.py"]
+
 [project.urls]
 Homepage = "https://github.com/WiseworksGithub/my-helpers.git"
