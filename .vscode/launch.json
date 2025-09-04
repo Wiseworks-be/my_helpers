@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Deploy Cloud Function",
+            "type": "cloudcode.cloudfunctions",
+            "request": "launch",
+            "functionName": "my-helpers",
+            "gen": "GEN_2",
+            "revision": "1",
+            "entryPoint": "helloWorld",
+            "testInput": "",
+            "region": "europe-west1",
+            "runtime": "python311"
+        }
+    ]
+}
