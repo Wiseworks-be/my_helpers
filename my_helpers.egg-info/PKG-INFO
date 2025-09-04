@@ -1,10 +1,10 @@
 Metadata-Version: 2.4
 Name: my-helpers
-Version: 0.1.0
+Version: 0.1.1
 Summary: Reusable helper functions for AppSheet, Billit, and other integrations
 Author-email: Marc De Krock <you@example.com>
 License: MIT
-Project-URL: Homepage, https://github.com/yourorg/my-helpers
+Project-URL: Homepage, https://github.com/WiseworksGithub/my-helpers.git
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: License

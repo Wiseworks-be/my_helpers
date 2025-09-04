@@ -3,8 +3,11 @@ README.md
 pyproject.toml
 my_helpers/__init__.py
 my_helpers/appsheet.py
+my_helpers/audit_helpers.py
 my_helpers/billit.py
+my_helpers/email_utils.py
 my_helpers/errors.py
+my_helpers/notifications.py
 my_helpers.egg-info/PKG-INFO
 my_helpers.egg-info/SOURCES.txt
 my_helpers.egg-info/dependency_links.txt
