@@ -10,7 +10,7 @@ import requests
 import urllib.parse
 import json
 from flask import jsonify
-from my_helpers.exceptions import (
+from helpers.exceptions import (
     ExternalAPIError,
     MethodNotAllowedError,
     BadRequestError,
