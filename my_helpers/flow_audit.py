@@ -41,7 +41,7 @@ from my_helpers.exceptions import (
     MethodNotAllowedError,
     BadRequestError,
     BusinessRuleError,
-)
+ )
 from notifications import send_push_notification
 import json
 
