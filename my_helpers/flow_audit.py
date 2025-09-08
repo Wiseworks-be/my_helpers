@@ -42,7 +42,7 @@ from my_helpers.exceptions import (
     BadRequestError,
     BusinessRuleError,
  )
-from .notifications import send_push_notification
+from my_helpers.notifications import send_push_notification
 import json
 
 # Initialize Firestore client once (shared across all flows)
