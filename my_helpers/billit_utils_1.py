@@ -10,7 +10,7 @@ import json
 import logging
 import os
 from dotenv import load_dotenv
-from helpers.exceptions import ExternalAPIError
+from my_helpers.exceptions import ExternalAPIError
 
 
 # Function to post an order to Billit

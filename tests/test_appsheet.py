@@ -3,8 +3,8 @@ Test script for my_helpers.appsheet module
 Tests URL generation and parameter validation without making real API calls
 """
 
-from helpers.appsheet import get_appsheet_url, post_data_to_appsheet
-from helpers.errors import check_mandatory_args
+from my_helpers.appsheet import get_appsheet_url, post_data_to_appsheet
+from my_helpers.errors import check_mandatory_args
 import urllib.parse
 
 def test_url_generation():
