@@ -32,7 +32,7 @@ import json
 import logging
 import os
 from dotenv import load_dotenv
-from exceptions import ExternalAPIError
+from my_helpers.exceptions import ExternalAPIError
 
 # Function to post an order to Billit
 # This function takes a payload, which is a JSON object,
