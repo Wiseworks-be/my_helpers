@@ -34,7 +34,7 @@ from google.cloud import firestore
 
 import os
 from datetime import timezone
-from .email_utils import send_email
+from my_helpers.email_utils import send_email
 from my_helpers.exceptions import handle_exception
 from my_helpers.exceptions import (
     ExternalAPIError,
