@@ -27,11 +27,11 @@ def flow_with_audit_logging(handler_func, flow_name, request, no_error="YES"):
 
 #More functions from the template
 import uuid
-import logging
+
 from datetime import datetime
 import traceback
 from google.cloud import firestore
-from flask import jsonify
+
 import os
 from datetime import timezone
 from email_utils import send_email
@@ -42,7 +42,7 @@ from my_helpers.exceptions import (
     BadRequestError,
     BusinessRuleError,
  )
-from notifications import send_push_notification
+from .notifications import send_push_notification
 import json
 
 # Initialize Firestore client once (shared across all flows)
