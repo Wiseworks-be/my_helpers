@@ -1,2 +1,2 @@
-from my_helpers.webhook_utils import v1
-from my_helpers.webhook_utils import v2
+from my_helpers.webhook_utils.v1 import post_data_to_appsheet
+from my_helpers.webhook_utils.v2 import send_push_notification
