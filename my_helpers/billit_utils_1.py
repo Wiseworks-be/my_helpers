@@ -9,7 +9,7 @@ import requests
 import json
 import logging
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from my_helpers.exceptions import ExternalAPIError
 
 
