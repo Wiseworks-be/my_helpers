@@ -14,4 +14,4 @@ from my_helpers.exceptions.exceptions_v0 import (
     BusinessRuleError,
 )
 
-from my_helpers.email_utils import send_email
+from my_helpers.email_utils.email_utils_v0 import send_email
