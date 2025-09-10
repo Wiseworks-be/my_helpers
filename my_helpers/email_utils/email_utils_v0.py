@@ -6,6 +6,7 @@ from email.utils import formataddr
 from datetime import datetime, timezone
 import logging
 import os
+from my_helpers.errors import *
 
 
 def send_email(
@@ -44,7 +45,7 @@ def send_email(
     Returns:
     - bool: True if email sent successfully, False otherwise
     """
-    from .errors import check_mandatory_args
+    
     
     # Validate required parameters
     mandatory_args = {
@@ -109,15 +110,15 @@ def send_email(
             server.send_message(msg, to_addrs=all_recipients)
             return True
     except smtplib.SMTPAuthenticationError as e:
-        from .errors import log_error
+        from errors import log_error
         log_error(f"Email authentication failed: {e}")
         return False
     except smtplib.SMTPException as e:
-        from .errors import log_error
+        from errors import log_error
         log_error(f"SMTP error: {e}")
         return False
     except Exception as e:
-        from .errors import log_error
+        from errors import log_error
         log_error(f"Unexpected email error: {e}")
         return False
 
@@ -191,7 +192,7 @@ def send_email_with_env_password(
     """
     password = os.environ.get(password_env_var)
     if not password:
-        from .errors import log_error
+        from errors import log_error
         log_error(f"Environment variable {password_env_var} is not set!")
         return False
     
