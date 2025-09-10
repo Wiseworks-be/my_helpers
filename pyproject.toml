@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "my-helpers"
-version = "0.1.1"
+version = "0.1.2"
 description = "Reusable helper functions for AppSheet, Billit, and other integrations"
 authors = [
   { name="Marc De Krock", email="you@example.com" }
@@ -15,6 +15,7 @@ requires-python = ">=3.9"
 
 dependencies = [
     "requests>=2.31.0",
+    "python-dotenv>=1.0.0"
 ]
 
 [tool.setuptools.packages.find]
@@ -25,6 +26,7 @@ include = ["my_helpers*"]
 "my_helpers" = ["*.py"]
 
 [project.urls]
-Homepage = "https://github.com/WiseworksGithub/my-helpers.git"
+Homepage = "https://github.com/WiseworksGithub/my-helpers"
+
 
 
