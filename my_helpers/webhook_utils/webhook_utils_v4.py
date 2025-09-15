@@ -19,8 +19,8 @@ from my_helpers.exceptions.exceptions_v0 import (
 
 
 # *
-def send_push_notification(message):
-    url = f"https://www.pushsafer.com/api?k=AYIor8gFjJ5zb1k0Y7Pv&d=17595&m={message}"
+def send_push_notification(message, api_key=None, device_id=None):
+    url = f"https://www.pushsafer.com/api?k={api_key}&d={device_id}&m={message}"
     response = requests.get(url)
 
     if response.status_code == 200:
