@@ -28,6 +28,14 @@ class BadRequestError(Exception):
     pass
 
 
+class BillitOrderNotFound(Exception):
+    pass
+
+
+class BillitOrderPDFTimeout(Exception):
+    pass
+
+
 # generic exception handler for Functions Framework
 # maps exceptions to (message, HTTP status code)
 # This is used to handle exceptions in a consistent way across the application.
