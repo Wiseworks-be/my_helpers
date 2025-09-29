@@ -45,12 +45,16 @@ Please check the logs and Firestore audit collection for more details.
         )
         if not success:
             logging.error(
-                f"❌ Failed to send error notification email for run {run_id}")
+                f"❌ Failed to send error notification email for run {run_id}"
+            )
         else:
             logging.info(f"✅ Sent error notification email for run {run_id}")
     except Exception as ex:
         logging.error(
-            f"❌ Exception occurred while sending error email for run {run_id}: {ex}", exc_info=True)
+            f"❌ Exception occurred while sending error email for run {run_id}: {ex}",
+            exc_info=True,
+        )
+
 
 # ***********************************************************************************
 
@@ -91,8 +95,7 @@ def send_email(
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = (
-        formataddr((sender_name, sender_email)
-                   ) if sender_name else sender_email
+        formataddr((sender_name, sender_email)) if sender_name else sender_email
     )
 
     # Normalize addresses
@@ -118,12 +121,14 @@ def send_email(
     if reply_to:
         msg["Reply-To"] = reply_to
 
-    msg.set_content(body)
+    # msg.set_content(body)
+    # Add both plain text and HTML
+    msg.set_content("Please view this email in an HTML-compatible client.")
+    msg.add_alternative(body, subtype="html")
 
     if attachment_bytes and attachment_filename:
         mime_type, _ = mimetypes.guess_type(attachment_filename)
-        maintype, subtype = (
-            mime_type or "application/octet-stream").split("/")
+        maintype, subtype = (mime_type or "application/octet-stream").split("/")
         msg.add_attachment(
             attachment_bytes,
             maintype=maintype,
