@@ -65,27 +65,42 @@ def search_file_in_folder(filename, folder_id):
     return files
 
 
-def get_file_bytes_from_drive(filename, folder_id):
+def get_file_bytes_from_drive_flexible(filename, folder_id):
     service = authenticate_drive()
 
-    # 🔍 Step 1: Search file in folder
-    query = f"'{folder_id}' in parents and name = '{filename}' and trashed = false"
+    # 🔍 Step 1: Search file in folder (without pageSize=1 to get all matches)
+    # Corrected query to dynamically include the folder_id
+    query = (
+        f"'{folder_id}' in parents and trashed = false"  # List all files in the folder
+    )
     results = (
         service.files()
         .list(
             q=query,
             spaces="drive",
             fields="files(id, name, mimeType)",
-            pageSize=1,
+            pageSize=100,  # Adjust as needed
         )
         .execute()
     )
-    files = results.get("files", [])
+    all_files_in_folder = results.get("files", [])
 
-    if not files:
-        raise FileNotFoundError(f"No file named '{filename}' in folder {folder_id}")
+    matching_files = [f for f in all_files_in_folder if f["name"] == filename]
 
-    file_id = files[0]["id"]
+    if not matching_files:
+        raise FileNotFoundError(
+            f"No file named '{filename}' found in folder {folder_id}"
+        )
+    elif len(matching_files) > 1:
+        print(
+            f"⚠️ Warning: Multiple files named '{filename}' found in folder {folder_id}. Using the first one."
+        )
+        # You might want to implement more robust logic here to select the correct file
+        # e.g., by creation date, or a specific pattern in the name.
+        pass  # Continue to use the first one
+
+    file_info = matching_files[0]
+    file_id = file_info["id"]
 
     # 📥 Step 2: Download as bytes
     request = service.files().get_media(fileId=file_id)
