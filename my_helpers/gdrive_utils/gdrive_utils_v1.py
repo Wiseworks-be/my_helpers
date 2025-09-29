@@ -59,7 +59,7 @@ def get_file_bytes_from_drive(filename: str, folder_id: str) -> bytes:
     # We need to ensure that the filename and folder_id are properly quoted
     # and that the 'in parents' clause is correctly structured.
     # Also, 'trashed = false' ensures we don't accidentally get a deleted file.
-    query = f"'{filename}' in parents and name = '{folder_id}' and trashed = false"
+    query = f"'{folder_id}' in parents and name = '{filename}' and trashed = false"
 
     print(f"🔍 Searching for file with query: '{query}'")
 
