@@ -57,6 +57,11 @@ def get_file_bytes_from_drive(filename: str, folder_id: str) -> bytes:
     print("Fetching file from Google Drive...")
     print("Filename:", ">", filename, "<")
     print("Folder ID:", ">", folder_id, "<")
+    filename = filename.strip()
+    folder_id = folder_id.strip()
+    print("Fetching file from Google Drive...STRIPPED")
+    print("Filename:", ">", filename, "<")
+    print("Folder ID:", ">", folder_id, "<")
     # 1. Construct the search query for the specific file in the specific folder.
     # We need to ensure that the filename and folder_id are properly quoted
     # and that the 'in parents' clause is correctly structured.
