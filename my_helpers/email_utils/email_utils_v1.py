@@ -73,6 +73,7 @@ def send_email(
     attachment_filename=None,
     smtp_server="smtp.gmail.com",
     smtp_port=587,
+    html_content=False,
 ):
     """
     Sends an email with optional in-memory file attachment, CC, BCC, and reply-to.
@@ -121,10 +122,11 @@ def send_email(
     if reply_to:
         msg["Reply-To"] = reply_to
 
-    # msg.set_content(body)
-    # Add both plain text and HTML
-    msg.set_content("Please view this email in an HTML-compatible client.")
-    msg.add_alternative(body, subtype="html")
+    if html_content:
+        msg.set_content("Please view this email in an HTML-capable client.")
+        msg.add_alternative(body, subtype="html")
+    else:
+        msg.set_content(body)  # plain text fallback
 
     if attachment_bytes and attachment_filename:
         mime_type, _ = mimetypes.guess_type(attachment_filename)
