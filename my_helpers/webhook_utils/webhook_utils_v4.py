@@ -43,12 +43,21 @@ def get_url(table, app_id=None, app_access_key=None):
 #   improved error handling
 #   added parameter checks and informative error messages by a raising ExternalAPIError
 # **********************************************************
-def check_mandatory_args(args: dict):
+def check_mandatory_args_1(args: dict):  # only when 'None' is not allowed
     """
-    Checks that all mandatory function arguments are provided (not None or empty).
-    Raises ExternalAPIError listing which arguments are missing.
+    Checks that all mandatory function arguments are provided (not None).
+    Empty lists/dicts are considered valid if explicitly passed.
     """
-    missing = [k for k, v in args.items() if not v]
+    missing = [k for k, v in args.items() if v is None]
+    if missing:
+        msg = f"Mandatory function argument(s) missing: {', '.join(missing)}"
+        raise ExternalAPIError(msg)
+
+
+def check_mandatory_args(
+    args: dict,
+):  # when both 'None' and empty string are not allowed
+    missing = [k for k, v in args.items() if v in (None, "")]
     if missing:
         msg = f"Mandatory function argument(s) missing: {', '.join(missing)}"
         raise ExternalAPIError(msg)
