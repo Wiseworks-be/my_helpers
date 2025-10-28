@@ -79,6 +79,7 @@ def post_data_to_appsheet(
     print("Rows:", rows)
     print("Action:", action)
     print("Selector:", selector)
+    print("Locale: ", locale)
     print("App Name:", app_name)
     print("App ID:", app_id)
     print("App Access Key:", app_access_key)
@@ -137,7 +138,7 @@ def post_data_to_appsheet(
     # FINAL JSON PAYLOAD
     print("JSON FOR APPSHEET", json.dumps(payload, indent=2))
     # POST to APPSHEET
-    appsheet_response = requests.post(url_appsheet_app, json=payload, headers=headers)
+    appsheet_response = requests.post(url_appsheet_app, json=payload)
     # check now response
     # response code 200 is OK, but we also need to check if data was returned
     # if no data returned, this means no record created or updated ini AppSheet
