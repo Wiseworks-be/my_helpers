@@ -79,7 +79,7 @@ def send_email(  # different login email from sender email!
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = f"{from_name} <{from_email}>"
-
+    print(f"OOOOOOOOOOOOOOO: {from_name} <{from_email}>")
     # Normalize addresses
     to_list = (
         [str(e) for e in recipient_email]
