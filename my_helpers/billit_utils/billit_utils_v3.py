@@ -208,7 +208,9 @@ def get_billit_file_content(file_id, BILLIT_API_KEY, BILLIT_BASE_URL):
     )
 
 
-def fetch_order_with_pdf(billit_order_id, api_key, base_url, max_retries=4):
+def fetch_order_with_pdf(
+    billit_order_id, api_key, base_url, max_retries=4, delay=5, interval=2
+):
     """
     Poll Billit until OrderPDF is available or retries are exhausted.
     - Initial wait: 5s
@@ -216,7 +218,7 @@ def fetch_order_with_pdf(billit_order_id, api_key, base_url, max_retries=4):
     - Max retries: max_retries (default 4)
     """
     # Initial wait before first check
-    time.sleep(5)
+    time.sleep(delay)
 
     for attempt in range(max_retries + 1):  # include final attempt
         order_details = get_billit_order_details(billit_order_id, api_key, base_url)
@@ -230,7 +232,7 @@ def fetch_order_with_pdf(billit_order_id, api_key, base_url, max_retries=4):
             return order_details  # ✅ success
 
         if attempt < max_retries:
-            time.sleep(2)  # wait before retry
+            time.sleep(interval)  # wait before retry
 
     # ❌ Timed out waiting for PDF
     raise BillitOrderPDFTimeout(
