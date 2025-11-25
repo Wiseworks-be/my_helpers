@@ -76,6 +76,20 @@ def send_email(
     smtp_port=587,  # STARTTLS (Gmail + One.com)
     html_content=False,
 ):
+    print("HELPER: Preparing to send email...")
+    print(f"Subject: {subject}")
+    print(f"From: {from_name} <{from_email}>")
+    print(f"To: {recipient_email}")
+    print(f"CC: {recipient_cc}")
+    print(f"BCC: {recipient_bcc}")
+    print(f"Reply-To: {reply_to}")
+    print(f"Attachment: {attachment_filename}")
+    print(f"HTML content: {html_content}")
+    print(f"SMTP server: {smtp_server}")
+    print(f"SMTP port: {smtp_port}")
+    print(f"SMTP user: {smtp_user}")
+    print(f"SMTP password: {smtp_password}")
+
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = f"{from_name} <{from_email}>"
