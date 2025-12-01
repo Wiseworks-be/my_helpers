@@ -59,24 +59,47 @@ Please check the logs and Firestore audit collection for more details.
 
 
 # ***********************************************************************************
+# Helper function to send emails - ADVANCED VERSION
+# Supports different sender login and visible sender
+# Supports HTML content and attachments
+# Supports DSN (Delivery Status Notification)
+# Makes sure that the mailbox always uses pure email addresses (no names) (to avoid autofill issues)
+# ***********************************************************************************
 
 
 def normalize_address(addr: str) -> str:
     """
     Ensures that Gmail cannot use old autocomplete contacts.
-    Always returns only the pure email address.
+    Returns only the pure email address.
     """
     _, email_only = parseaddr(addr)
     return email_only or addr
 
 
+def normalize_recipient_field(value):
+    """
+    Safely normalize To/CC/BCC input.
+    Handles:
+        - None
+        - single string
+        - list of strings
+    """
+    if not value:
+        return []
+
+    if isinstance(value, list):
+        return [normalize_address(str(v)) for v in value]
+
+    return [normalize_address(str(value))]
+
+
 def send_email(
     subject,
     body,
-    from_email,  # Visible From address
+    from_email,
     from_name,
-    smtp_user,  # LOGIN identity
-    smtp_password,  # LOGIN password or app password
+    smtp_user,
+    smtp_password,
     recipient_email,
     recipient_cc=None,
     recipient_bcc=None,
@@ -86,7 +109,7 @@ def send_email(
     smtp_server="smtp.gmail.com",
     smtp_port=587,
     html_content=False,
-    request_dsn=False,  # NEW: request delivery status notifications
+    request_dsn=False,
 ):
     print("HELPER: Preparing to send email...")
     print(f"Subject: {subject}")
@@ -98,35 +121,14 @@ def send_email(
     msg = EmailMessage()
     msg["Subject"] = subject
 
-    # Use proper visible sender
+    # Visible sender
     msg["From"] = f"{from_name} <{from_email}>"
-    # This ensures Gmail does NOT rewrite it:
-    msg["Sender"] = smtp_user
+    msg["Sender"] = smtp_user  # prevents Gmail from rewriting
 
-    # Normalize recipients (strip names)
-    to_list = (
-        [normalize_address(str(e))]
-        if not isinstance(recipient_email, list)
-        else [normalize_address(str(e)) for e in recipient_email]
-    )
-    cc_list = (
-        []
-        if not recipient_cc
-        else (
-            [normalize_address(str(e))]
-            if not isinstance(recipient_cc, list)
-            else [normalize_address(str(e)) for e in recipient_cc]
-        )
-    )
-    bcc_list = (
-        []
-        if not recipient_bcc
-        else (
-            [normalize_address(str(e))]
-            if not isinstance(recipient_bcc, list)
-            else [normalize_address(str(e)) for e in recipient_bcc]
-        )
-    )
+    # --- SAFE NORMALIZATION ---
+    to_list = normalize_recipient_field(recipient_email)
+    cc_list = normalize_recipient_field(recipient_cc)
+    bcc_list = normalize_recipient_field(recipient_bcc)
 
     msg["To"] = ", ".join(to_list)
     if cc_list:
@@ -152,7 +154,6 @@ def send_email(
             filename=attachment_filename,
         )
 
-    # Every recipient the SMTP server uses
     all_recipients = to_list + cc_list + bcc_list
 
     try:
@@ -164,11 +165,9 @@ def send_email(
 
             mail_opts = []
             if request_dsn:
-                # Ask for delivery status notifications
                 mail_opts.append("NOTIFY=SUCCESS,FAILURE,DELAY")
 
             server.send_message(msg, to_addrs=all_recipients, mail_options=mail_opts)
-
             print("✅ Email sent successfully.")
             return True
 
