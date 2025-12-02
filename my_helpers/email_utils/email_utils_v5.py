@@ -155,6 +155,10 @@ def send_email(
         )
 
     all_recipients = to_list + cc_list + bcc_list
+    print("DEBUG to_list:", to_list)
+    print("DEBUG cc_list:", cc_list)
+    print("DEBUG bcc_list:", bcc_list)
+    print("DEBUG all_recipients:", all_recipients)
 
     try:
         with smtplib.SMTP(smtp_server, smtp_port, timeout=15) as server:

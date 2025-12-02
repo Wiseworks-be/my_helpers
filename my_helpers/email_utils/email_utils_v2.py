@@ -96,8 +96,7 @@ def send_email(
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = (
-        formataddr((sender_name, sender_email)
-                   ) if sender_name else sender_email
+        formataddr((sender_name, sender_email)) if sender_name else sender_email
     )
 
     # Normalize addresses
@@ -131,8 +130,7 @@ def send_email(
 
     if attachment_bytes and attachment_filename:
         mime_type, _ = mimetypes.guess_type(attachment_filename)
-        maintype, subtype = (
-            mime_type or "application/octet-stream").split("/")
+        maintype, subtype = (mime_type or "application/octet-stream").split("/")
         msg.add_attachment(
             attachment_bytes,
             maintype=maintype,
@@ -143,6 +141,10 @@ def send_email(
 
     # Combine all recipients for sending
     all_recipients = to_list + cc_list + bcc_list
+    print("DEBUG to_list:", to_list)
+    print("DEBUG cc_list:", cc_list)
+    print("DEBUG bcc_list:", bcc_list)
+    print("DEBUG all_recipients:", all_recipients)
 
     try:
         with smtplib.SMTP(smtp_server, smtp_port, timeout=10) as server:
